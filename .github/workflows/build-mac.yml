@@ -15,12 +15,15 @@ jobs:
       id: cache-qt
       uses: actions/cache@v2
       with:
-        path: ../Qt
+        path: $RUNNER_WORKSPACE/Qt
         key: ${{ runner.os }}-QtCache
 
     - name: Download and install Qt
       uses: jurplel/install-qt-action@v2
       with:
         version: '5.12.9'
-        dir: ../Qt
+        dir: $RUNNER_WORKSPACE
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
+
+    - name: print env
+      run: env
