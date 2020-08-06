@@ -25,8 +25,8 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    - name: debug output
-      run: echo runner_workspace $RUNNER_WORKSPACE
+    - name: create build dir
+      run: mkdir $RUNNER_WORKSPACE/build
 
     - name: cmake generate/configure
       working-directory: $RUNNER_WORKSPACE/build
