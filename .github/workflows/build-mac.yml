@@ -3,13 +3,12 @@ name: build-mac
 on:
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   install-qt:
     runs-on: macos-10.15
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - name: checkout sources
+      uses: actions/checkout@v2
 
     - name: Cache Qt
       id: cache-qt
@@ -26,5 +25,11 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    - name: print env
-      run: env
+    - name: cmake generate/configure
+      working-directory: $RUNNER_WORKSPACE/build
+      run: cmake -GXcode $GITHUB_WORKSPACE
+
+    - name: cmake build
+      working-directory: $RUNNER_WORKSPACE/build
+      run: cmake --build . --target ALL_BUILD
+
