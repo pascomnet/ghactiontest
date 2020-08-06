@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
+if(APPLE)
+    #SET(MACOSX_DEPLOYMENT_TARGET ${DARWIN_MAJOR_SDK_VERSION}.${DARWIN_MINOR_SDK_VERSION})
+    SET(CMAKE_CXX_FLAGS "--sysroot ${CMAKE_OSX_SYSROOT} ${CMAKE_CXX_FLAGS}")
+    #MESSAGE("Setting MACOSX_DEPLOYMENT_TARGET to '${MACOSX_DEPLOYMENT_TARGET}'.")
+endif()
+
 project(ghactiontest LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -26,16 +32,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
+set(SOURCE
+    main.cpp
+    qml.qrc
+    class1.cpp
+    )
+
 if(ANDROID)
-    add_library(ghactiontest SHARED
-      main.cpp
-      qml.qrc
-    )
+    add_library(ghactiontest SHARED ${SOURCE})
+elseif(APPLE)
+    add_executable(ghactiontest MACOSX_BUNDLE ${SOURCE})
 else()
-    add_executable(ghactiontest
-      main.cpp
-      qml.qrc
-    )
+    add_executable(ghactiontest ${SOURCE})
 endif()
 
 target_compile_definitions(ghactiontest
