@@ -25,9 +25,12 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    - name: debug
+    - name: debug output
       run: |
+        echo ls Qt5_DIR $Qt5_DIR
         ls $Qt5_DIR
+        echo ls Qt5_DIR/lib $Qt5_DIR/lib
+        ls $Qt5_DIR/lib
 
     - name: create build dir
       run: mkdir build
