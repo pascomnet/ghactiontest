@@ -16,7 +16,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: $RUNNER_WORKSPACE/Qt
-        key: ${{ runner.os }}-QtCache
+        key: ${{ runner.os }}-QtCache-ios
 
     - name: Download and install Qt
       uses: jurplel/install-qt-action@v2
@@ -24,6 +24,7 @@ jobs:
         version: '5.12.9'
         dir: $RUNNER_WORKSPACE
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
+        target: 'ios'
 
     - name: print env
       run: env
