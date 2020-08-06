@@ -25,6 +25,9 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
+    - name: create build dir
+      run: mkdir build
+
     - name: cmake generate/configure
       working-directory: build
       run: cmake -GXcode ..
