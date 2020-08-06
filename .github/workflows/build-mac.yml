@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  install-qt:
+  build-mac:
     runs-on: macos-10.15
     steps:
     - name: checkout sources
@@ -25,9 +25,12 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
+    - name: debug output
+      run: echo runner_workspace $RUNNER_WORKSPACE
+
     - name: cmake generate/configure
       working-directory: $RUNNER_WORKSPACE/build
-      run: cmake -GXcode $GITHUB_WORKSPACE
+      run: cmake -GXcode $GITHUB_WORKSPACE/
 
     - name: cmake build
       working-directory: $RUNNER_WORKSPACE/build
