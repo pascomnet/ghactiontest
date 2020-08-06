@@ -11,11 +11,16 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v2
+      with:
+        path: ../Qt
+        key: ${{ runner.os }}-QtCache
+
     - name: Download and install Qt
-      shell: bash
-      env:
-        QT_PASSWORD: ${{ secrets.QT_TEST }}
-      run: |
-        ls $GITHUB_WORKSPACE
-        env
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.12.9'
+        dir: ../Qt
+        cached: ${{ steps.cache-qt.outputs.cache-hit }}
