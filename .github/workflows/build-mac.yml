@@ -25,14 +25,11 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    - name: create build dir
-      run: mkdir $RUNNER_WORKSPACE/build
-
     - name: cmake generate/configure
-      working-directory: $RUNNER_WORKSPACE/build
-      run: cmake -GXcode $GITHUB_WORKSPACE/
+      working-directory: build
+      run: cmake -GXcode ..
 
     - name: cmake build
-      working-directory: $RUNNER_WORKSPACE/build
+      working-directory: build
       run: cmake --build . --target ALL_BUILD
 
