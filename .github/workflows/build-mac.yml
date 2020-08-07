@@ -39,9 +39,9 @@ jobs:
         ls $Qt5_DIR/lib
 
     - name: cmake generate/configure
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: build
       run: cmake -GXcode ..
 
     - name: cmake build
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: build
       run: cmake --build . --target ALL_BUILD
