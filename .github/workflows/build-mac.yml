@@ -18,8 +18,7 @@ jobs:
         key: ${{ runner.os }}-QtCache-5.12.9
 
     - name: Download and install Qt
-      uses: jurplel/install-qt-action@v2
-      if: 
+      uses: jurplel/install-qt-action@v2 
       with:
         version: '5.12.9'
         dir: $GITHUB_WORKSPACE
@@ -37,6 +36,10 @@ jobs:
         ls $Qt5_DIR
         echo ls Qt5_DIR/lib $Qt5_DIR/lib
         ls $Qt5_DIR/lib
+        echo ls Qt5_DIR/lib/cmake $Qt5_DIR/lib/cmake
+        ls $Qt5_DIR/lib/cmake
+        echo ls Qt5_DIR/lib/cmake/Qt5 $Qt5_DIR/lib/cmake/Qt5
+        ls $Qt5_DIR/lib/cmake/Qt5
 
     - name: cmake generate/configure
       working-directory: build
