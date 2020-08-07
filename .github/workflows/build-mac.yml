@@ -50,6 +50,7 @@ jobs:
       run: cmake --build . --target ALL_BUILD --config Debug
 
     - name: upload artifacts
+      uses: actions/upload-artifact@v2
       with:
         name: binary
         path: build/Debug/
