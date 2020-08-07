@@ -50,3 +50,12 @@ target_compile_definitions(ghactiontest
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(ghactiontest
   PRIVATE Qt5::Core Qt5::Quick)
+
+get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
+get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
+find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
+
+add_custom_command(TARGET ghactiontest POST_BUILD
+    COMMAND "${MACDEPLOYQT_EXECUTABLE}" "$<TARGET_FILE_DIR:ghactiontest>/../.." "-always-overwrite" "-codesign=-" "-qmldir=${CMAKE_SOURCE_DIR}" "-verbose=3"
+    COMMENT "Running macdeployqt..."
+)
