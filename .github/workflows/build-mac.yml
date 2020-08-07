@@ -15,31 +15,31 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ${{github.workspace}}/Qt
-        key: ${{ runner.os }}-QtCache-5.12.9-a
+        key: ${{ runner.os }}-QtCache-5.15.0
 
     - name: Download and install Qt
       uses: jurplel/install-qt-action@v2 
       with:
-        version: '5.12.9'
+        version: '5.15.0'
         dir: ${{github.workspace}}
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    - name: create build dir
-      run: mkdir $GITHUB_WORKSPACE/build
+    # - name: create build dir
+    #   run: mkdir $GITHUB_WORKSPACE/build
 
-    - name: debug output
-      run: |
-        echo ls GITHUB_WORKSPACE ${{github.workspace}}
-        ls ${{github.workspace}}
-        echo ls Qt5_DIR $Qt5_DIR ${{ env.Qt5_DIR }}
-        ls $Qt5_DIR
-        echo ls Qt5_DIR/lib $Qt5_DIR/lib
-        ls $Qt5_DIR/lib
-        echo ls Qt5_DIR/lib/cmake $Qt5_DIR/lib/cmake
-        ls $Qt5_DIR/lib/cmake
-        echo ls Qt5_DIR/lib/cmake/Qt5 $Qt5_DIR/lib/cmake/Qt5
-        ls $Qt5_DIR/lib/cmake/Qt5
+    # - name: debug output
+    #   run: |
+    #     echo ls GITHUB_WORKSPACE ${{github.workspace}}
+    #     ls ${{github.workspace}}
+    #     echo ls Qt5_DIR $Qt5_DIR ${{ env.Qt5_DIR }}
+    #     ls $Qt5_DIR
+    #     echo ls Qt5_DIR/lib $Qt5_DIR/lib
+    #     ls $Qt5_DIR/lib
+    #     echo ls Qt5_DIR/lib/cmake $Qt5_DIR/lib/cmake
+    #     ls $Qt5_DIR/lib/cmake
+    #     echo ls Qt5_DIR/lib/cmake/Qt5 $Qt5_DIR/lib/cmake/Qt5
+    #     ls $Qt5_DIR/lib/cmake/Qt5
 
     - name: cmake generate/configure
       working-directory: build
@@ -47,4 +47,9 @@ jobs:
 
     - name: cmake build
       working-directory: build
-      run: cmake --build . --target ALL_BUILD
+      run: cmake --build . --target ALL_BUILD --config Debug
+
+    - name: upload artifacts
+      with:
+        name: binary
+        path: build/Debug/
