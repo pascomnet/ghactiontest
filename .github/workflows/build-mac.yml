@@ -14,14 +14,14 @@ jobs:
       id: cache-qt
       uses: actions/cache@v2
       with:
-        path: $GITHUB_WORKSPACE/Qt
-        key: ${{ runner.os }}-QtCache-5.12.9
+        path: ${{github.workspace}}/Qt
+        key: ${{ runner.os }}-QtCache-5.12.9-a
 
     - name: Download and install Qt
       uses: jurplel/install-qt-action@v2 
       with:
         version: '5.12.9'
-        dir: $GITHUB_WORKSPACE
+        dir: ${{github.workspace}}
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
@@ -30,9 +30,9 @@ jobs:
 
     - name: debug output
       run: |
-        echo ls GITHUB_WORKSPACE $GITHUB_WORKSPACE
-        ls $GITHUB_WORKSPACE
-        echo ls Qt5_DIR $Qt5_DIR
+        echo ls GITHUB_WORKSPACE ${{github.workspace}}
+        ls ${{github.workspace}}
+        echo ls Qt5_DIR $Qt5_DIR ${{ env.Qt5_DIR }}
         ls $Qt5_DIR
         echo ls Qt5_DIR/lib $Qt5_DIR/lib
         ls $Qt5_DIR/lib
