@@ -19,11 +19,15 @@ jobs:
 
     - name: Download and install Qt
       uses: jurplel/install-qt-action@v2
+      if: 
       with:
         version: '5.12.9'
         dir: $GITHUB_WORKSPACE
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
+
+    - name: create build dir
+      run: mkdir $GITHUB_WORKSPACE/build
 
     - name: debug output
       run: |
@@ -34,14 +38,11 @@ jobs:
         echo ls Qt5_DIR/lib $Qt5_DIR/lib
         ls $Qt5_DIR/lib
 
-    - name: create build dir
-      run: mkdir $GITHUB_WORKSPACE/build
+    # - name: cmake generate/configure
+    #   working-directory: $GITHUB_WORKSPACE/build
+    #   run: cmake -GXcode ..
 
-    - name: cmake generate/configure
-      working-directory: $GITHUB_WORKSPACE/build
-      run: cmake -GXcode ..
-
-    - name: cmake build
-      working-directory: $GITHUB_WORKSPACE/build
-      run: cmake --build . --target ALL_BUILD
+    # - name: cmake build
+    #   working-directory: $GITHUB_WORKSPACE/build
+    #   run: cmake --build . --target ALL_BUILD
 
