@@ -25,8 +25,8 @@ jobs:
         cached: ${{ steps.cache-qt.outputs.cache-hit }}
         target: 'desktop'
 
-    # - name: create build dir
-    #   run: mkdir $GITHUB_WORKSPACE/build
+    - name: create build dir
+      run: mkdir ${{github.workspace}}/build
 
     # - name: debug output
     #   run: |
@@ -42,11 +42,11 @@ jobs:
     #     ls $Qt5_DIR/lib/cmake/Qt5
 
     - name: cmake generate/configure
-      working-directory: build
+      working-directory: ${{github.workspace}}/build
       run: cmake -GXcode ..
 
     - name: cmake build
-      working-directory: build
+      working-directory: ${{github.workspace}}/build
       run: cmake --build . --target ALL_BUILD --config Debug
 
     - name: upload artifacts
