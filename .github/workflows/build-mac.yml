@@ -28,19 +28,6 @@ jobs:
     - name: create build dir
       run: mkdir ${{github.workspace}}/build
 
-    # - name: debug output
-    #   run: |
-    #     echo ls GITHUB_WORKSPACE ${{github.workspace}}
-    #     ls ${{github.workspace}}
-    #     echo ls Qt5_DIR $Qt5_DIR ${{ env.Qt5_DIR }}
-    #     ls $Qt5_DIR
-    #     echo ls Qt5_DIR/lib $Qt5_DIR/lib
-    #     ls $Qt5_DIR/lib
-    #     echo ls Qt5_DIR/lib/cmake $Qt5_DIR/lib/cmake
-    #     ls $Qt5_DIR/lib/cmake
-    #     echo ls Qt5_DIR/lib/cmake/Qt5 $Qt5_DIR/lib/cmake/Qt5
-    #     ls $Qt5_DIR/lib/cmake/Qt5
-
     - name: cmake generate/configure
       working-directory: ${{github.workspace}}/build
       run: cmake -GXcode ..
