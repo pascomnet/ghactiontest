@@ -13,5 +13,5 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
-    - name: Run CMake -h
-      run: CMake -h
+    - name: Run cmake -h
+      run: cmake -h
