@@ -11,7 +11,19 @@ jobs:
       run: echo Hello, world!
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        mkdir build
+        mkdir symbols
+        echo Add other actions to build > build/binary
+        echo test, and deploy your project > symbols/debug_symbols
     - name: Run cmake -h
       run: cmake -h
+    - name: upload artifact1
+      uses: actions/upload-artifact@v2
+      with:
+        name: binary
+        path: build/
+    - name: upload artifact2
+      uses: actions/upload-artifact@v2
+      with:
+        name: debug_symbols
+        path: symbols
