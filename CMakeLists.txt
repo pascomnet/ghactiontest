@@ -18,7 +18,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "YES")
-set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "B58E9CF1B54E3621ED44931F9ED37ADE114255E7")
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "[Developer ID Application cert SHA-1 fingerprint]")
+set(CMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS "--timestamp --options=runtime")
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_INJECT_BASE_ENTITLEMENTS "NO")
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
@@ -59,6 +61,6 @@ get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 find_program(MACDEPLOYQT_EXECUTABLE macdeployqt HINTS "${_qt_bin_dir}")
 
 add_custom_command(TARGET ghactiontest POST_BUILD
-    COMMAND "${MACDEPLOYQT_EXECUTABLE}" "$<TARGET_FILE_DIR:ghactiontest>/../.." "-always-overwrite" "-qmldir=${CMAKE_SOURCE_DIR}" "-verbose=2" "-codesign=B58E9CF1B54E3621ED44931F9ED37ADE114255E7"
+    COMMAND "${MACDEPLOYQT_EXECUTABLE}" "$<TARGET_FILE_DIR:ghactiontest>/../.." "-always-overwrite" "-qmldir=${CMAKE_SOURCE_DIR}" "-verbose=2" "-codesign=[Developer ID Application cert SHA-1 fingerprint]"
     COMMENT "Running macdeployqt..."
 )
