@@ -42,8 +42,12 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: cmake --build . --target ALL_BUILD --config Debug
 
+    - name: compress app bundle
+      working-directory: build/Debug
+      run: /usr/bin/ditto -c -k --keepParent "ghactiontest.app" "ghactiontest.zip"
+
     - name: upload artifacts
       uses: actions/upload-artifact@v2
       with:
         name: binary
-        path: build/Debug/
+        path: build/Debug/ghactiontest.zip
